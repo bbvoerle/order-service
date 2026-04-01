@@ -11,6 +11,18 @@
 Anleitung zum Starten der Anwendung
 ========================================
 
+- Einrichtung der PostgreSQL-Datenbank:
+  Anlegen von Benutzer und Datenbank:
+
+   Über ein SQL-Client-Tool (z. B. psql, DBeaver, pgAdmin) folgende Befehle ausführen:
+
+   CREATE USER ordersuser WITH PASSWORD 'orderspw';
+   CREATE DATABASE ordersdb;
+   ALTER DATABASE ordersdb OWNER TO ordersuser;
+
+   Die Tabellen werden beim ersten Start der Anwendung automatisch
+   durch Hibernate erzeugt.
+
 - Anwendung starten über IntelliJ (Run/Debug) oder:
   mvn spring-boot:run
 
