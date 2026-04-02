@@ -93,16 +93,25 @@ Annahmen
 - Vereinfachte Verarbeitung innerhalb einer einzelnen Anwendung
 - Keine Authentifizierung oder Autorisierung implementiert
 - Fokus auf technische Struktur und nicht auf vollständige Fachlogik
-- Keine automatische Retry-Logik bei Messaging-Fehlern; stattdessen wird der Status auf FAILED gesetzt
+- JMS Queue funktioniert und braucht keine Retries, also keine automatische Retry-Logik bei Messaging-Fehlern; stattdessen wird der Status auf FAILED gesetzt
 
 
 ========================================
 Mögliche Erweiterungen für den Produktionseinsatz
 ========================================
 
+Code-Verbesserungen
+- Erweiterung von `ExceptionHandler`, um aussagekräftige Validierungsfehlermeldungen zurückzugeben
+- Begrenzung der Anzahl der im geplanten Job abgerufenen neuen `MessageOuts` (zu viele führen dazu, dass mehrere Jobs gleichzeitig ausgeführt werden)
+- Rückgabe der 'orderId' bei createOrder
+- Hinzufügen von Unit-Tests
+- Verwendung von Mapper-Klassen zur Zuordnung zwischen Entitäten und DTOs
+- Hinzufügen von 'magic values' in der Properties-Datei
+
+Verbesserungen am Systemdesign
 - Externer Message Broker statt eingebettetem ActiveMQ
-- Implementierung von Retry-Strategien und Dead-Letter-Queues
+- Implementierung von Retry-Strategien (Wiederholungsanzahl + Backoff + Dead-Letter-Queue)
 - Einsatz von Flyway oder Liquibase für Datenbankmigrationen
-- Monitoring und Metriken (z. B. Spring Actuator, Prometheus)
+- Monitoring und Metriken (z. B. Spring Actuator,Prometheus&Grafana, oder vielleicht Dynatrace&Splunk)
 - Containerisierung mit Docker und Orchestrierung mit Kubernetes
-- Trennung REST-Applikation, Messageproducer (job) und Queuelistener.
+- Trennung REST-Applikation, Messageproducer (job) und Queuelistener
