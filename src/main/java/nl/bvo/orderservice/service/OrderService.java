@@ -52,8 +52,8 @@ public class OrderService {
 
     private Order createOrderEntity(OrderRequest orderRequest) {
         Order order = new Order();
-        order.setCustomerId(orderRequest.getCustomerId());
-        order.setAmount(orderRequest.getAmount());
+        order.setCustomerId(orderRequest.customerId());
+        order.setAmount(orderRequest.amount());
         order.setStatus(OrderStatus.CREATED);
         return order;
     }
@@ -65,11 +65,7 @@ public class OrderService {
     }
 
     private OrderDTO mapToOrderDTO(Order order) {
-        OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setId(order.getId());
-        orderDTO.setCustomerId(order.getCustomerId());
-        orderDTO.setAmount(order.getAmount());
-        orderDTO.setStatus(order.getStatus());
+        OrderDTO orderDTO = new OrderDTO(order.getId(), order.getCustomerId(), order.getAmount(), order.getStatus());
         return orderDTO;
     }
 }
